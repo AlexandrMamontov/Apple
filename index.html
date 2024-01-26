@@ -16,21 +16,15 @@
     }
 
     .container {
-      height: 14000px;
+      height: 5000px;
     }
 
     .container-2 {
       background: goldenrod;
-      height: 200vh;
-      padding: 200px;
-      font-weight: bold;
-      text-transform: uppercase;
-      font-size: 50px;
-      text-align: center;
-      line-height: normal;
+      height: 7000px;
     }
 
-    .content {
+    /* .content {
       margin: 0 auto;
     }
 
@@ -57,27 +51,10 @@
       align-self: flex-end;
       margin-right: 150px;
       z-index: 10;
-    }
-
-    /* .div {
-      position: sticky;
-      top: 0;
-      width: 100%;
-      height: 300px;
-      background: #fff;
-      z-index: 1;
-    }
-
-    .div2 {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      height: 300px;
-      background: #fff;
-      z-index: 1;
     } */
-    
-    #video__container {
+
+    .video__container,
+    .video__container-2 {
       position: sticky;
       top: 0;
       height: 100vh;
@@ -97,12 +74,10 @@
 
 <body>
   <div class="container">
-    <div id="video__container">
+    <div class="video__container">
       <canvas id="video-canvas"></canvas>
     </div>
-    <!-- <div class="div"></div>
-    <div class="div2"></div> -->
-    <div class="content">
+    <!-- <div class="content">
       <div class="sticky">
         <div class="module" data-role="viewport-highlight">
           <h2>Dolor Sit Amet</h2>
@@ -185,233 +160,95 @@
             diam voluptua.</p>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <div class="container-2">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo laboriosam eligendi assumenda, voluptatem corporis ut adipisci placeat odio voluptate ab est veritatis officiis! Atque similique ipsa consectetur esse eum magnam!
+    <div class="video__container-2">
+      <canvas id="video-canvas-2"></canvas>
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" type="text/javascript"></script>
   <script src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>
   <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
-  <!-- <script>
-    $(document).ready(function () {
-      var module = $('[data-role="viewport-highlight"]'),
-        customGreen = "#56eb93",
-        customGrey = "#555555";
 
-      function highlightModulesInView($el) {
-        $(window).on('load scroll resize', function () {
-          var viewportHeight = $(window).height(),
-            fiftyPercentOfViewport = viewportHeight / 2,
-            moduleHeight = $el.height(),
-            pixelsOfModuleInView = calculateAmountOfModuleInView($el),
-            shouldItBeHighlighted = (pixelsOfModuleInView > fiftyPercentOfViewport) || (pixelsOfModuleInView == moduleHeight),
-            highlightEl = $el.find("h2, p, ul, a, span");
-
-          highlightEl.css("transition", "color 0.5s");
-
-          shouldItBeHighlighted ? highlightEl.css("color", customGreen) : highlightEl.css("color", customGrey);
-        });
-      };
-
-      function calculateAmountOfModuleInView($el) {
-        var screenTop = $(document).scrollTop(),
-          screenBottom = screenTop + $(window).height(),
-          moduleHeight = $el.height(),
-          moduleTop = $el.offset().top,
-          moduleBottom = moduleTop + moduleHeight;
-
-        switch (true) {
-          case moduleTop > screenTop:
-            switch (true) {
-              case moduleBottom < screenBottom:
-                return moduleHeight;
-                break;
-              case moduleTop < screenBottom:
-                return screenBottom - moduleTop;
-                break;
-              default:
-                break;
-            }
-          case moduleBottom > screenTop:
-            return moduleBottom - screenTop;
-            break;
-          default:
-            break;
-        };
-      };
-
-      $(module).each(function () {
-        new highlightModulesInView($(this));
-      });
-    });
-  </script> -->
-
-  <!-- <script>
-    var isBlockVisible = false; // Флаг для отслеживания видимости блока
-
-window.addEventListener('scroll', function() {
-  var block = document.querySelector('.container-2');
-  var blockPosition = block.getBoundingClientRect();
-  var windowHeight = window.innerHeight;
-
-  if (blockPosition.top <= windowHeight && !isBlockVisible) {
-    doAction();
-    isBlockVisible = true; // Устанавливаем флаг видимости блока в true
-  } else if (blockPosition.top > windowHeight && isBlockVisible) {
-    doOtherAction();
-    isBlockVisible = false; // Устанавливаем флаг видимости блока в false
-  }
-});
-
-function doAction() {
-  console.log('Блок стал видимым');
-  // document.querySelector('.div2').style.position = 'sticky';
-  // document.querySelector('.div2').style.top = '100%';
-  // document.querySelector('.div2').style.bottom = 'unset';
-  document.getElementById('video__container').style.position = 'sticky';
-  document.getElementById('video__container').style.transform = 'unset';
-}
-
-function doOtherAction() {
-  console.log('Блок не видим');
-  // document.querySelector('.div2').style.position = 'fixed';
-  // document.querySelector('.div2').style.top = 'unset';
-  // document.querySelector('.div2').style.bottom = '0';
-  document.getElementById('video__container').style.position = 'fixed';
-  document.getElementById('video__container').style.transform = 'translate(-50%, -50%)';
-}
-  </script> -->
-
-<script>
-  const canvas = document.getElementById("video-canvas");
-  const context = canvas.getContext("2d");
-  // Меняем кол. кадров
-  const frameCount = 232;
-  // Указать путь до папки с фото
-  const currentFrame = index => (
+  <script>
+    const canvas = document.getElementById("video-canvas");
+    const canvas2 = document.getElementById("video-canvas-2");
+    const context = canvas.getContext("2d");
+    const context2 = canvas2.getContext("2d");
+    const frameCount = 232;
+    const frameCount2 = 50;
+    const currentFrame = index => (
       `https://img.danila-master.ru/uploads/articlesImages/action/classical-monuments/constructor/1/%C2%A0%20(${(index + 1)}).jpg`
-  );
+    );
+    const currentFrame2 = index => (
+      `https://img.danila-master.ru/uploads/articlesImages/action/classical-monuments/constructor/2/${(index + 1)}.png`
+    );
 
-  const images = []
-  const cano = {
+    const images = []
+    const images2 = []
+    const cano = {
       frame: 0
-  };
+    };
+    const cano2 = {
+      frame: 0
+    };
 
-  for (let i = 0; i < frameCount; i++) {
+    for (let i = 0; i < frameCount; i++) {
       const img = new Image();
       img.src = currentFrame(i);
       images.push(img);
-  }
+    }
+    for (let i = 0; i < frameCount2; i++) {
+      const img2 = new Image();
+      img2.src = currentFrame2(i);
+      images2.push(img2);
+    }
 
-  function render() {
+    function render() {
       context.clearRect(0, 0, canvas.width, canvas.height);
       context.drawImage(images[cano.frame], 0, 0, canvas.width, canvas.height);
-  }
+    }
+    function render2() {
+      context2.clearRect(0, 0, canvas2.width, canvas2.height);
+      context2.drawImage(images2[cano2.frame], 0, 0, canvas2.width, canvas2.height);
+    }
 
-  // Условия для телефонов до 480px
-  if (screen.width < 480) {
-      images[0].onload = function () {
-          canvas.width = 1671;
-          canvas.height = 1671;
-          render();
-      };
-  }
+    images[0].onload = function () {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      render();
+    };
+    images2[0].onload = function () {
+      canvas2.width = window.innerWidth;
+      canvas2.height = window.innerHeight;
+      render2();
+    };
 
-  // Условия для маленьких планшетов от 480 до 640px
-  else if (screen.width < 640) {
-      images[0].onload = function () {
-          canvas.width = 1905;
-          canvas.height = 1905;
-          render();
-      };
-  }
-
-  // Условия для средних планшетов от 640 до 1000px
-  else if (screen.width < 1000) {
-      images[0].onload = function () {
-          canvas.width = 1905;
-          canvas.height = 926;
-          render();
-      };
-  }
-
-  // Условия для больших планшетов от 1000 до 1200px
-  else if (screen.width < 1200) {
-      images[0].onload = function () {
-          canvas.width = 2811;
-          canvas.height = 1366;
-          render();
-      };
-  }
-
-  // Условия для старых ноутбуков от 1200 до 1440px
-  else if (screen.width < 1440) {
-      images[0].onload = function () {
-          canvas.width = 1853;
-          canvas.height = 900;
-          render();
-      };
-  }
-
-  // Условия для новых ноутбуков (hd) от 1440 до 1920px
-  else if (screen.width < 1920) {
-      images[0].onload = function () {
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
-          render();
-      };
-  }
-
-  // Условия для настольных ПК (ultra-HD) + ретина от 1920 до 5500px
-  else if (screen.width < 5500) {
-      images[0].onload = function () {
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
-          render();
-      };
-  }
-
-  // Условия если нет нужного разрешения
-  else {
-      images[0].onload = function () {
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
-          render();
-      };
-
-  }
-
-  // Класс для триггера
-  gsap.to(cano, {
+    gsap.to(cano, {
       frame: frameCount - 1,
       snap: "frame",
       scrollTrigger: {
-          // trigger: ".trigger-animation-start",
-          start: "top top",
-          end: '+=5000px',
-          scrub: 1
+        start: 'top top',
+        end: '+=5000px',
+        scrub: 1
       },
       onUpdate: render
-  });
-
-  const blocks = gsap.utils.toArray('.block');
-
-  blocks.forEach((block, index) => {
-      ScrollTrigger.create({
-          trigger: block,
-          start: 'top center',
-          end: 'bottom center',
-          onEnter: () => gsap.to(block, { opacity: 1, duration: 1 }),
-          onLeave: () => gsap.to(block, { opacity: 0, duration: 1 }),
-          onEnterBack: () => gsap.to(block, { opacity: 1, duration: 1 }),
-          onLeaveBack: () => gsap.to(block, { opacity: 0, duration: 1 }),
-      });
-  });
-
-</script>
+    });
+    gsap.to(cano2, {
+      frame: frameCount2 - 1,
+      snap: "frame",
+      scrollTrigger: {
+        start: window.pageYOffset,
+        end: '+=5000px',
+        scrub: 1
+      },
+      onUpdate: render2
+    });
+  </script>
 
 </body>
+
 </html>
